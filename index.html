@@ -24,11 +24,11 @@
         font-family: 'Bitter', serif;
     }
 </style>
-    <title>Hello, world!</title>
+    <title>Weather</title>
   </head>
     <body onload="getWeather(72701)">
         <div class="container my-5 p-5">
-            <div id="myDIV" class="row mb-4">
+            <div class="row mb-4">
                 <div class="col-12 text-center">
                     <input id="userZip" type="text" placeholder="zip code" >
                     <button onclick="getWeather(userZip.value)" class="addBtn btn btn-dark" id="btn" default-value="72701">get weather</button>
@@ -54,11 +54,11 @@
                 let request = new XMLHttpRequest();
             
                 request.onreadystatechange = function() {
-                    if (request.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+                    if (request.readyState == XMLHttpRequest.DONE) {   
                         if (request.status == 200) {
                             let forecast = JSON.parse(request.responseText);
                             console.log(forecast);
-                            let conditions = "Current conditions in " + forecast.name + "\n" + forecast.weather[0].description + " and " + forecast.main.temp + " degrees";
+                            let conditions = "Current conditions in " + forecast.name + "\n" + forecast.weather[0].description + " and " + Math.round(forecast.main.temp) + " degrees";
                             console.log(conditions);
                             document.getElementById("weather-message").innerText = conditions;
                         
@@ -102,7 +102,7 @@
                     }
                 };
             
-                request.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=" + userZip + ",US&units=imperial&appid=40bb6c1a780da643afd00b6b82850082", true);
+                request.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=" + userZip + ",{API Key Here}", true);
                 request.send();
             }
 
